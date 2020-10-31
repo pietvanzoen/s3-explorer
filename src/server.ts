@@ -3,7 +3,7 @@ import ejs from 'ejs';
 import { readFileSync } from 'fs';
 import list from './list-files';
 
-const template = ejs.compile(readFileSync('./view.ejs', 'utf8'));
+const template = ejs.compile(readFileSync(__dirname + '/view.ejs', 'utf8'));
 
 const { PORT = 8080 } = process.env;
 

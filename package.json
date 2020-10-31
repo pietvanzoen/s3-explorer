@@ -7,9 +7,11 @@
   "license": "MIT",
   "scripts": {
     "install:hooks": "./scripts/install-hooks",
-    "dev": "nodemon -r dotenv/config index.ts",
+    "dev": "nodemon -r dotenv/config src/server.ts",
+    "prebuild": "rm -r build",
     "build": "tsc --project ./",
-    "start": "node build/index.js",
+    "postbuild": "cp -v src/**.ejs build",
+    "start": "node build/server.js",
     "build:image": "docker build -t pietvanzoen/s3-explorer .",
     "predeploy": "npm run lint",
     "deploy": "npm run build:image && docker push pietvanzoen/s3-explorer",
