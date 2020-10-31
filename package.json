@@ -6,6 +6,7 @@
   "author": "pietvanzoen <hi@pietvanzoen.com>",
   "license": "MIT",
   "scripts": {
+    "install:hooks": "./scripts/install-hooks",
     "dev": "nodemon index.ts",
     "build": "tsc --project ./",
     "start": "node build/index.js",
