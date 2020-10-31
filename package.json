@@ -8,7 +8,7 @@
   "scripts": {
     "install:hooks": "./scripts/install-hooks",
     "dev": "nodemon -r dotenv/config src/server.ts",
-    "prebuild": "rm -r build",
+    "prebuild": "rm -rf build",
     "build": "tsc --project ./",
     "postbuild": "cp -v src/**.ejs build",
     "start": "node build/server.js",
