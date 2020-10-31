@@ -1,2 +1,6 @@
 node_modules
+scripts
 build
+.eslintrc.js
+.prettierrc.js
+.nvmrc

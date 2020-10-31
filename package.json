@@ -11,7 +11,8 @@
     "build": "tsc --project ./",
     "start": "node build/index.js",
     "build:image": "docker build -t pietvanzoen/s3-explorer .",
-    "deploy": "docker push pietvanzoen/s3-explorer",
+    "predeploy": "npm run lint",
+    "deploy": "npm run build:image && docker push pietvanzoen/s3-explorer",
     "lint": "eslint .",
     "format": "eslint . --fix"
   },
