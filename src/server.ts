@@ -1,23 +1,26 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { join } from 'path';
 import ejs from 'ejs';
 import { readFileSync } from 'fs';
 import list from './list-files';
 
 const template = ejs.compile(readFileSync(__dirname + '/view.ejs', 'utf8'));
 
-const { PORT = 8080 } = process.env;
+const { PORT = 8080, BUCKET = '', PREFIX = '' } = process.env;
 
 const server = createServer(
   async (req: IncomingMessage, res: ServerResponse) => {
-    if (req.url !== '/') {
+    const path = join(PREFIX, req.url || '', '/');
+    const files = await list(BUCKET, path);
+    console.log(files);
+    if (files === null) {
       res.writeHead(404, { 'Content-Type': 'text/html' });
-      res.write('Not Found');
+      res.write('Not found');
       res.end();
       return;
     }
-    const files = await list(process.env.BUCKET, process.env.PREFIX);
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write(template({ files, bucket: process.env.BUCKET }));
+    res.write(template({ prefix: PREFIX, files, title: join(BUCKET, path) }));
     res.end();
   },
 );
